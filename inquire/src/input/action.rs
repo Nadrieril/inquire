@@ -33,6 +33,15 @@ impl InnerAction for InputAction {
                 // Let's catch this combination and ignore it.
                 return None;
             }
+            Key::Char('u', m) if m.contains(KeyModifiers::CONTROL) => {
+                Self::Delete(Magnitude::Line, LineDirection::Left)
+            }
+            Key::Char('k', m) if m.contains(KeyModifiers::CONTROL) => {
+                Self::Delete(Magnitude::Line, LineDirection::Right)
+            }
+            Key::Char('w', m) if m.contains(KeyModifiers::CONTROL) => {
+                Self::Delete(Magnitude::Word, LineDirection::Left)
+            }
 
             Key::Delete(m) if m.contains(KeyModifiers::CONTROL) => {
                 Self::Delete(Magnitude::Word, LineDirection::Right)
